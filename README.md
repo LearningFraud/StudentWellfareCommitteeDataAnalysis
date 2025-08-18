@@ -1,4 +1,4 @@
-# CT Assessment 3 - Data Project\
+# CT Assessment 3 - Data Project
 
 
 # Task 3
