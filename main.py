@@ -161,7 +161,6 @@ def projectPage(logo_path, menu_window):
     tk.Label(project_window, text="This project is about analyzing student learning data.", bg="#00a8eb").pack(pady=int(screen_height * 0.02))
 
     for text, command in [("Project Overview", lambda: showNotebook("Overview.ipynb", logo_path, project_window)),
-                          ("Project Journal", lambda: showNotebook("ProjectJournal.ipynb", logo_path, project_window)),
                           ("Back to Home", lambda: homePage(logo_path, project_window)),
                           ("Exit", quit_app)]:
         tk.Button(project_window, text=text, command=command).pack(pady=int(screen_height * 0.015))
@@ -200,6 +199,13 @@ def showNotebook(filename, logo_path, prev_window):
         tk.Button(nb_window, text=text, command=command).pack(pady=int(screen_height * 0.015))
 
 def showData(parent_window):
+    import pandas as pd
+    from scipy.stats import pearsonr
+    from matplotlib.figure import Figure
+    from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+    import matplotlib.pyplot as plt
+    import tkinter as tk
+
     data = pd.read_csv('CleanedDataset-Manual.csv')
     data['RoomDecor'] = pd.to_numeric(data['RoomDecor'], errors='coerce')
     data['RoomLearn'] = pd.to_numeric(data['RoomLearn'], errors='coerce')
@@ -241,9 +247,14 @@ def showData(parent_window):
     ax.set_title('Overlay of Scatter Plot and 2D Histogram\nCorrelation Between Room Decoration and Student Learning', fontsize=14)
     ax.grid(False)
 
-    canvas = FigureCanvasTkAgg(fig, master=parent_window)
+    # ✅ Embed canvas in a dedicated frame
+    plot_frame = tk.Frame(parent_window)
+    plot_frame.pack(fill='both', expand=True)
+
+    canvas = FigureCanvasTkAgg(fig, master=plot_frame)
     canvas.draw()
     canvas.get_tk_widget().pack(fill='both', expand=True)
+
 
 # 🔰 Entry Point
 if __name__ == "__main__":

@@ -18,3 +18,8 @@ See task rubric for how to succeed in this task.
 
 ## Task Notification
 See 9CT-Task-3.pdf
+
+## Additional Information
+See Overview.ipynb for all project information
+
+### ⚠️ WARNING - PLEASE SEE OVERVIEW.IPYNB BEFORE RUNNING MAIN.PY
